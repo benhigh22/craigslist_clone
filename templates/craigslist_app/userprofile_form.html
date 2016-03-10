@@ -2,7 +2,7 @@
 {% block title%}Your City{% endblock %}
 
 {% block content %}
- <h3>What city do you want to search in?</h3>
+ <h3>Update Your Preferred City</h3>
 <form action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
@@ -11,4 +11,7 @@
     <i class="material-icons right">send</i>
     </button>
 </form>
+
+    <h3>Your Preferred City: {{ object.preferred_city }}</h3>
+
 {% endblock %}

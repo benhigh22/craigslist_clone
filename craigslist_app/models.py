@@ -13,18 +13,7 @@ class City(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    city = models.ForeignKey(City)
-
-    def __str__(self):
-        return self.city
-
-
-@receiver(post_save, sender=User)
-def user_profile_create(sender, **kwargs):
-   created = kwargs.get("created")
-   if created:
-       instance = kwargs.get("instance")
-       UserProfile.objects.create(user=instance)
+    preferred_city = models.ForeignKey(City, null=True)
 
 
 class Category(models.Model):

@@ -16,7 +16,7 @@
         {% if user.is_authenticated %}
         <li><a href="{% url 'logout' %}">Logout</a></li>
         <li><a href="{% url 'category' %}">Home</a></li>
-        <li><a href="#">My Account</a></li>
+        <li><a href="{% url 'user_profile_update' user.id %}">My Account</a></li>
         {% else %}
         <li><a href="{% url 'signup' %}">Register</a></li>
         <li><a href="{% url 'login' %}">Login</a></li>

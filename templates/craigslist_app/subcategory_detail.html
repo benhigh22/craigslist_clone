@@ -6,8 +6,12 @@
     <div><a href="{% url 'sub_post' object.pk %}">Post Here!</a></div>
     <br>
     {% for post in object.post_set.all %}
-        <div><a href="{% url 'post_detail' post.id %}">{{ post }}</a></div>
+        {% if post.photo %}
+            <div><img src="{{ post.photo.url }}" alt="" width="75px">
+        {% endif %}
+        <a href="{% url 'post_detail' post.id %}">{{ post }}</a></div>
+
     {% endfor %}
-    
+
 
 {% endblock %}

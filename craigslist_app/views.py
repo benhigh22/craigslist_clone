@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
-from django.views.generic import CreateView, TemplateView, DetailView, ListView
+from django.views.generic import CreateView, TemplateView, DetailView, ListView, UpdateView
 
 from craigslist_app.models import SubCategory, UserProfile, Category, City, Post
 
@@ -50,3 +50,13 @@ class CatPostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
+
+
+class UserProfileUpdateView(UpdateView):
+    model = UserProfile
+    fields = ('preferred_city',)
+
+    def get_success_url(self):
+        return reverse("category")
+
+

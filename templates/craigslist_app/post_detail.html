@@ -12,11 +12,11 @@
                 <h6>{{ object.description }}</h6>
                 <h5>Date/Time Posted: </h5>
                 <h6>{{ object.time_posted }}</h6>
+                {% if object.photo %}
+                <div><img src="{{ object.photo.url }}" alt=""></div>
+                {% endif %}
             </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
+
           </div>
         </div>
       </div>

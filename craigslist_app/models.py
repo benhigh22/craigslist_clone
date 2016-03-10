@@ -10,6 +10,7 @@ class City(models.Model):
     def __str__(self):
         return self.name
 
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     city = models.ForeignKey(City)
@@ -41,4 +42,16 @@ class SubCategory(models.Model):
         return self.name
 
 
+class Post(models.Model):
+    subcategory = models.ForeignKey(SubCategory)
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    price = models.FloatField()
+    photo = models.ImageField(upload_to='uploads', null=True, blank=True)
+    time_posted = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering=['-time_posted']

@@ -4,11 +4,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from django.views.generic import CreateView, TemplateView, DetailView, ListView
 
-from craigslist_app.models import SubCategory, UserProfile
-
-
-class IndexTemplateView(TemplateView):
-    template_name = 'index.html'
+from craigslist_app.models import SubCategory, UserProfile, Category, City, Post
 
 
 class UserCreateView(CreateView):
@@ -19,13 +15,38 @@ class UserCreateView(CreateView):
         return reverse("login")
 
 
-class SubCategoryListView(ListView):
+class CategoryListView(ListView):
+    model = Category
+
+
+class SubCategoryDetailView(DetailView):
     model = SubCategory
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['subcategory'] = SubCategory.objects.get(pk=self.kwargs.get('pk'))
+        return context
 
-class CityCreateView(CreateView):
-    model = UserProfile
-    fields = ('city',)
+
+class PostCreateView(CreateView):
+    model = Post
+    fields = ('title', 'description', 'price', 'photo')
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.subcategory = SubCategory.objects.get(pk=self.kwargs.get('post_id'))
+        return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse("login")
+        return reverse("category")
+
+
+class CatPostListView(ListView):
+    model = Post
+
+    def get_queryset(self):
+        return Post.objects.filter(subcategory__category_id=self.kwargs.get('cat_id'))
+
+
+class PostDetailView(DetailView):
+    model = Post

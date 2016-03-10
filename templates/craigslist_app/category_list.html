@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title%}Category List{% endblock %}
+
+{% block content %}
+
+    {% for category in object_list %}
+
+            <h5><span><a href="{% url 'cat_post_list' category.id %}">{{ category }}</a></span></h5>
+
+        {% for subcategory in category.subcategory_set.all %}
+
+           <div><a href="{% url 'subcat_detail' subcategory.id %}">{{ subcategory }}</a></div>
+
+        {% endfor %}
+<br>
+    {% endfor %}
+
+
+{% endblock %}

@@ -4,22 +4,24 @@
 {% block content %}
 <div class="row">
         <div class="col s12 m12">
-          <div class="card white darken-5">
+          <div class="card light-grey darken-3">
             <div class="card-content teal-text">
                 <h5>Title:</h5>
               <span class="card-title">{{ object }}</span>
+                <h5>Price:</h5>
+                <h6>$ {{ object.price }}</h6>
                 <h5>Full Description: </h5>
                 <h6>{{ object.description }}</h6>
                 <h5>Date/Time Posted: </h5>
                 <h6>{{ object.time_posted }}</h6>
                 {% if object.photo %}
-                <div><img src="{{ object.photo.url }}" alt=""></div>
+                <div><img src="{{ object.photo.url }}" alt="" width="300px"></div>
                 {% endif %}
             </div>
 
           </div>
         </div>
-      </div>
+</div>
 
 
 {% endblock %}

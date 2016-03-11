@@ -2,11 +2,14 @@
 {% block title%}Post List{% endblock %}
 
 {% block content %}
-
+<table class="highlight">
+    <th>Title</th>
+    <th>Price</th>
     {% for post in object_list %}
-    <div><a href="{% url 'post_detail' post.id %}">{{ post }}</a></div>
+    <tr><td><a href="{% url 'post_detail' post.id %}">{{ post }}</a></td>
+    <td>$ {{ post.price }}</td></tr>
     {% endfor %}
-
+</table>
 
 {% endblock %}
 

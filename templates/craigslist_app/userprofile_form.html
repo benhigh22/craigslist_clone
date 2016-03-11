@@ -2,6 +2,7 @@
 {% block title%}Your City{% endblock %}
 
 {% block content %}
+    <h1>Hello {{ request.user }}</h1>
  <h3>Update Your Preferred City</h3>
 <form action="" method="post">
     {% csrf_token %}
@@ -11,7 +12,5 @@
     <i class="material-icons right">send</i>
     </button>
 </form>
-
-    <h3>Your Preferred City: {{ object.preferred_city }}</h3>
 
 {% endblock %}

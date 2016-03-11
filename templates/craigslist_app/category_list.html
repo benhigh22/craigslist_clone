@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    <marquee><h1 class="white-text">Home Page</h1></marquee>
+    <marquee><h1 class="white-text">Hello {{ request.user }}. Browse the Categories Below!</h1></marquee>
     {% for category in object_list %}
         <br>
             <h5><span><a href="{% url 'cat_post_list' category.id %}">{{ category }}</a></span></h5>

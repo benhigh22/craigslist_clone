@@ -2,16 +2,22 @@
 {% block title%}SubCat Detail{% endblock %}
 
 {% block content %}
+
 <h4>{{ object.category }} / {{ object }}</h4>
-    <div><a href="{% url 'sub_post' object.pk %}">Post Here!</a></div>
+    <a class="waves-effect waves-light btn-large" href="{% url 'sub_post' object.pk %}">Post Here!</a>
     <br>
+<table class="highlight">
+<th>Picture</th>
+<th>Title</th>
+<th>Price</th>
     {% for post in object.post_set.all %}
-        {% if post.photo %}
-            <div><img src="{{ post.photo.url }}" alt="" width="75px">
+       <tr> {% if post.photo %}
+            <td><img src="{{ post.photo.url }}" alt="" width="75px"></td>
+           {% else %}
+           <td><img src="" alt=""></td>
         {% endif %}
-        <a href="{% url 'post_detail' post.id %}">{{ post }}</a></div>
-
+        <td><a href="{% url 'post_detail' post.id %}">{{ post }}</a></td>
+        <td>{{ post.price }}</td></tr>
     {% endfor %}
-
-
+</table>
 {% endblock %}

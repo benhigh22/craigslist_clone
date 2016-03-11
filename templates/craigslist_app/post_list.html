@@ -5,9 +5,11 @@
 <table class="highlight">
     <th>Title</th>
     <th>Price</th>
+    <th>City</th>
     {% for post in object_list %}
     <tr><td><a href="{% url 'post_detail' post.id %}">{{ post }}</a></td>
-    <td>$ {{ post.price }}</td></tr>
+    <td>$ {{ post.price }}</td>
+    <td>{{ post.city }}</td></tr>
     {% endfor %}
 </table>
 

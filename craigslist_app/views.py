@@ -30,7 +30,7 @@ class SubCategoryDetailView(DetailView):
 
 class PostCreateView(CreateView):
     model = Post
-    fields = ('title', 'description', 'price', 'photo')
+    fields = ('title', 'description', 'price', 'city', 'photo')
 
     def form_valid(self, form):
         post = form.save(commit=False)

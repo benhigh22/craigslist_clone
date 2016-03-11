@@ -38,6 +38,7 @@ class Post(models.Model):
     price = models.FloatField()
     photo = models.ImageField(upload_to='uploads', null=True, blank=True)
     time_posted = models.DateTimeField(auto_now_add=True)
+    city = models.ForeignKey(City)
 
     def __str__(self):
         return self.title

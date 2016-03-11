@@ -2,9 +2,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
-from django.views.generic import CreateView, TemplateView, DetailView, ListView, UpdateView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from craigslist_app.models import SubCategory, UserProfile, Category, City, Post
+from craigslist_app.models import SubCategory, UserProfile, Category, Post
 
 
 class UserCreateView(CreateView):
@@ -21,6 +21,27 @@ class CategoryListView(ListView):
 
 class SubCategoryDetailView(DetailView):
     model = SubCategory
+    template_name = 'craigslist_app/subcategory_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['subcategory'] = SubCategory.objects.get(pk=self.kwargs.get('pk'))
+        return context
+
+
+class SubCategoryListDetailView(DetailView):
+    model = SubCategory
+    template_name = 'craigslist_app/subcategorylist_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['subcategory'] = SubCategory.objects.get(pk=self.kwargs.get('pk'))
+        return context
+
+
+class SubCategoryGalleryDetailView(DetailView):
+    model = SubCategory
+    template_name = 'craigslist_app/subcategorygallery_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

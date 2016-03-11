@@ -5,7 +5,6 @@ from django.contrib.auth import views as auth_views
 from craigslist_app.views import UserCreateView, CategoryListView, SubCategoryDetailView, \
     PostCreateView, CatPostListView, PostDetailView, UserProfileUpdateView
 
-
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^signup', UserCreateView.as_view(), name='signup'),

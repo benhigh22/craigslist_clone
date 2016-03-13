@@ -9,13 +9,19 @@
     <div><a href="{% url 'subcat_list_detail' subcategory.id %}">List View</a> /
     <a href="{% url 'subcat_gallery_detail' subcategory.id %}">Gallery View</a></div>
     <br>
+
+<div class="row sorting">
+    <div><a href="{% url 'subcat_detail' object.pk %}?order=price">Lowest Price</a> /
+    <a href="{% url 'subcat_detail' object.pk %}?order=-price">Highest Price</a> /
+    <a href="{% url 'subcat_detail' object.pk %}?order=-time_posted">Most Recent</a></div>
+</div>
 <table class="highlight">
 <th>Picture</th>
 <th>Title</th>
 <th>Price</th>
-    {% for post in object.post_set.all %}
+    {% for post in post_list %}
        <tr> {% if post.photo %}
-            <td><img src="{{ post.photo.url }}" alt="" width="75px"></td>
+           <td><img src="{{ post.photo.url }}" alt="" width="75px"></td>
            {% else %}
            <td><img src="" alt=""></td>
         {% endif %}

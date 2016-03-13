@@ -9,10 +9,15 @@
     <div><a href="{% url 'subcat_detail' subcategory.id %}">Thumb View</a> /
     <a href="{% url 'subcat_gallery_detail' subcategory.id %}">Gallery View</a></div>
     <br>
+
+<div class="row sorting">
+    <div><a href="{% url 'subcat_list_detail' object.pk %}?order=price">Lowest Price</a> /
+    <a href="{% url 'subcat_list_detail' object.pk %}?order=-price">Highest Price</a> /
+    <a href="{% url 'subcat_list_detail' object.pk %}?order=-time_posted">Most Recent</a></div>
 <table class="highlight">
 <th>Title</th>
 <th>Price</th>
-    {% for post in object.post_set.all %}
+    {% for post in post_list %}
         <tr><td><a href="{% url 'post_detail' post.id %}">{{ post }}</a></td>
         <td>{{ post.price }}</td></tr>
     {% endfor %}

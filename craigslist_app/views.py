@@ -25,8 +25,13 @@ class SubCategoryDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['subcategory'] = SubCategory.objects.get(pk=self.kwargs.get('pk'))
+        if self.request.GET.urlencode():
+            ordering = self.request.GET.urlencode()[6:]
+        else:
+            ordering = '-time_posted'
+        context['post_list'] = context['subcategory'].post_set.all().order_by(ordering)
         return context
+
 
 
 class SubCategoryListDetailView(DetailView):
@@ -35,7 +40,11 @@ class SubCategoryListDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['subcategory'] = SubCategory.objects.get(pk=self.kwargs.get('pk'))
+        if self.request.GET.urlencode():
+            ordering = self.request.GET.urlencode()[6:]
+        else:
+            ordering = '-time_posted'
+        context['post_list'] = context['subcategory'].post_set.all().order_by(ordering)
         return context
 
 
@@ -45,7 +54,11 @@ class SubCategoryGalleryDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['subcategory'] = SubCategory.objects.get(pk=self.kwargs.get('pk'))
+        if self.request.GET.urlencode():
+            ordering = self.request.GET.urlencode()[6:]
+        else:
+            ordering = '-time_posted'
+        context['post_list'] = context['subcategory'].post_set.all().order_by(ordering)
         return context
 
 

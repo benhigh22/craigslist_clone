@@ -2,7 +2,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
-
 from craigslist_app.models import SubCategory, UserProfile, Category, Post
 
 

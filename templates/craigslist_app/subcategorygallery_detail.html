@@ -15,15 +15,14 @@
     <div><a href="{% url 'subcat_gallery_detail' object.pk %}?order=price">Lowest Price</a> /
     <a href="{% url 'subcat_gallery_detail' object.pk %}?order=-price">Highest Price</a> /
     <a href="{% url 'subcat_gallery_detail' object.pk %}?order=-time_posted">Most Recent</a></div>
-
+</div>
 <table class="highlight">
 <th>Picture</th>
     {% for post in post_list %}
-       <tr> {% if post.photo %}
-            <td><a href="{% url 'post_detail' post.id %}"><img src="{{ post.photo.url }}" alt="" width="300px"></a></td>
-           {% else %}
-           <td><img src="" alt=""></td>
-        {% endif %}
+       <tr>{% if post.photo %}
+        <td><a href="{% url 'post_detail' post.id %}"><img src="{{ post.photo.url }}" alt="" width="300px">Click for details</a></td></tr>
+           {% endif %}
     {% endfor %}
 </table>
+
 {% endblock %}

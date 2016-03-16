@@ -15,7 +15,7 @@
     <th>Photo</th>
     {% for post in post_list %}
     <tr>{% if post.photo %}
-            <td><a href="{% url 'post_detail' post.id %}"><img src="{{ post.photo.url }}" alt="" width="300px"></a></td>
+            <td><a href="{% url 'post_detail' post.id %}"><img src="{{ post.photo.url }}" alt="" width="300px">Click for details</a></td>
         {% endif %}
     {% endfor %}
 </table>

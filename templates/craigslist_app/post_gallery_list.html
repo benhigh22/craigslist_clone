@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title%}Post List{% endblock %}
+
+{% block content %}
+    <br>
+    <div><a href="{% url 'cat_post_list' object.pk %}">List View</a> /
+    <a href="{% url 'cat_post_thumb_list' object.pk %}">Thumb View</a></div>
+    <br>
+<div class="row sorting">
+    <div><a href="{% url 'cat_post_gallery_list' object.pk %}?order=price">Lowest Price</a> /
+    <a href="{% url 'cat_post_gallery_list' object.pk %}?order=-price">Highest Price</a> /
+    <a href="{% url 'cat_post_gallery_list' object.pk %}?order=-time_posted">Most Recent</a></div>
+</div>
+<table class="highlight">
+    <th>Photo</th>
+    {% for post in post_list %}
+    <tr>{% if post.photo %}
+            <td><a href="{% url 'post_detail' post.id %}"><img src="{{ post.photo.url }}" alt="" width="300px"></a></td>
+        {% endif %}
+    {% endfor %}
+</table>
+
+{% endblock %}
+

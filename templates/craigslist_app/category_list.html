@@ -4,10 +4,11 @@
 {% block content %}
 
     <marquee><h1 class="blue-text">Hello {{ request.user }}. Browse the Categories Below!</h1></marquee>
+
     {% for category in object_list %}
         <br>
         <table class="highlight">
-           <th><a href="{% url 'cat_post_list' category.id %}">{{ category }}</a></th>
+           <th><a href="{% url 'cat_post_thumb_list' category.id %}">{{ category }}</a></th>
 
         {% for subcategory in category.subcategory_set.all %}
 

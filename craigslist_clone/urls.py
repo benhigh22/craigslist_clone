@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 from craigslist_app.views import UserCreateView, CategoryListView, SubCategoryDetailView, \
     PostCreateView, CatPostListView, PostDetailView, UserProfileUpdateView, SubCategoryListDetailView, \
-    SubCategoryGalleryDetailView
+    SubCategoryGalleryDetailView, CatPostThumbListView, CatPostGalleryListView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -19,7 +19,9 @@ urlpatterns = [
     url(r'^sub/list/detail/(?P<pk>\d+)', SubCategoryListDetailView.as_view(), name='subcat_list_detail'),
     url(r'^sub/gallery/detail/(?P<pk>\d+)', SubCategoryGalleryDetailView.as_view(), name='subcat_gallery_detail'),
     url(r'^sub/post/(?P<post_id>\d+)', login_required(PostCreateView.as_view()), name='sub_post'),
-    url(r'^catpostlist/(?P<cat_id>\d+)', CatPostListView.as_view(), name='cat_post_list'),
+    url(r'^catpost/list/(?P<cat_id>\d+)/$', CatPostListView.as_view(), name='cat_post_list'),
+    url(r'^catpost/thumb/list/(?P<cat_id>\d+)/$', CatPostThumbListView.as_view(), name='cat_post_thumb_list'),
+    url(r'^catpost/gallery/list/(?P<cat_id>\d+)/$', CatPostGalleryListView.as_view(), name='cat_post_gallery_list'),
     url(r'^post/detail/(?P<pk>\d+)/$', PostDetailView.as_view(), name='post_detail'),
     url(r'^media/(?P<path>.*)', "django.views.static.serve", {"document_root": settings.MEDIA_ROOT}),
 ]

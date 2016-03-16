@@ -25,8 +25,8 @@ class SubCategoryDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.GET.urlencode():
-            ordering = self.request.GET.urlencode()[6:]
+        if self.request.GET:
+            ordering = self.request.GET.get('order')
         else:
             ordering = '-time_posted'
         context['post_list'] = context['subcategory'].post_set.all().order_by(ordering)
@@ -40,8 +40,8 @@ class SubCategoryListDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.GET.urlencode():
-            ordering = self.request.GET.urlencode()[6:]
+        if self.request.GET:
+            ordering = self.request.GET.get('order')
         else:
             ordering = '-time_posted'
         context['post_list'] = context['subcategory'].post_set.all().order_by(ordering)
@@ -54,8 +54,8 @@ class SubCategoryGalleryDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.GET.urlencode():
-            ordering = self.request.GET.urlencode()[6:]
+        if self.request.GET:
+            ordering = self.request.GET.get('order')
         else:
             ordering = '-time_posted'
         context['post_list'] = context['subcategory'].post_set.all().order_by(ordering)
@@ -72,7 +72,7 @@ class PostCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse("category")
+        return reverse("post_detail", kwargs={'pk': self.object.pk})
 
 
 class CatPostListView(ListView):
@@ -80,6 +80,54 @@ class CatPostListView(ListView):
 
     def get_queryset(self):
         return Post.objects.filter(subcategory__category_id=self.kwargs.get('cat_id'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.GET:
+            ordering = self.request.GET.get('order')
+        else:
+            ordering = '-time_posted'
+        print(ordering)
+        context['post_list'] = self.get_queryset().order_by(ordering)
+        context['object'] = Category.objects.get(pk=self.kwargs.get('cat_id'))
+        return context
+
+
+class CatPostThumbListView(ListView):
+    model = Post
+    template_name = 'craigslist_app/post_thumb_list.html'
+
+    def get_queryset(self):
+        return Post.objects.filter(subcategory__category_id=self.kwargs.get('cat_id'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.GET:
+            ordering = self.request.GET.get('order')
+        else:
+            ordering = '-time_posted'
+        print(ordering)
+        context['post_list'] = self.get_queryset().order_by(ordering)
+        context['object'] = Category.objects.get(pk=self.kwargs.get('cat_id'))
+        return context
+
+
+class CatPostGalleryListView(ListView):
+    model = Post
+    template_name = 'craigslist_app/post_gallery_list.html'
+
+    def get_queryset(self):
+        return Post.objects.filter(subcategory__category_id=self.kwargs.get('cat_id'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.GET:
+            ordering = self.request.GET.get('order')
+        else:
+            ordering = '-time_posted'
+        context['post_list'] = self.get_queryset().order_by(ordering)
+        context['object'] = Category.objects.get(pk=self.kwargs.get('cat_id'))
+        return context
 
 
 class PostDetailView(DetailView):

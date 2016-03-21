@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from rest_framework import generics
-
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 from craigslist_app.models import SubCategory, UserProfile, Category, Post
 from craigslist_app.serializers import CategorySerializer, SubCategorySerializer, PostSerializer
 
@@ -108,22 +109,46 @@ class SubCategoryListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = SubCategorySerializer
 
 
+class SubCategoryListAPIView(generics.ListCreateAPIView):
+    serializer_class = SubCategorySerializer
+
+    def get_queryset(self):
+        return SubCategory.objects.filter(category_id=self.kwargs.get('pk'))
+
+
 class SubCategoryRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = SubCategory.objects.all()
     serializer_class = SubCategorySerializer
 
 
 class PostListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Post.objects.all()
     serializer_class = PostSerializer
 
+
+class SubPostListCreateAPIView(generics.ListCreateAPIView):
+    serializer_class = PostSerializer
+    authentication_classes = (BasicAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     def get_queryset(self):
-        user = self.request.user
-        return Post.objects.filter(user=user)
+        return Post.objects.filter(subcategory_id=self.kwargs.get('pk'))
+
+
+class CatPostListCreateAPIView(generics.ListCreateAPIView):
+    serializer_class = PostSerializer
+    authentication_classes = (BasicAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        return Post.objects.filter(subcategory__category_id=self.kwargs.get('pk'))
+
 
 
 class PostRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PostSerializer
+    authentication_classes = (BasicAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        user = self.request.user
-        return Post.objects.filter(user=user)
+        return Post.objects.filter(id=self.kwargs.get('pk'))

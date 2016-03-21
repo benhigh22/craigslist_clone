@@ -8,7 +8,8 @@ from craigslist_app.views import UserCreateView, CategoryListView, SubCategoryDe
     PostCreateView, CatPostListView, PostDetailView, UserProfileUpdateView, SubCategoryListDetailView, \
     SubCategoryGalleryDetailView, CatPostThumbListView, CatPostGalleryListView, CategoryListCreateAPIView, \
     PostListCreateAPIView, SubCategoryListCreateAPIView, CategoryRetrieveUpdateDestroyAPIView, \
-    SubCategoryRetrieveUpdateDestroyAPIView, PostRetrieveUpdateDestroyAPIView
+    SubCategoryRetrieveUpdateDestroyAPIView, PostRetrieveUpdateDestroyAPIView, SubCategoryListAPIView, \
+    SubPostListCreateAPIView, CatPostListCreateAPIView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -28,8 +29,11 @@ urlpatterns = [
     url(r'^media/(?P<path>.*)', "django.views.static.serve", {"document_root": settings.MEDIA_ROOT}),
     url(r'^api/categories/$', CategoryListCreateAPIView.as_view(), name='cat_api_list_create'),
     url(r'^api/subcategories/$', SubCategoryListCreateAPIView.as_view(), name='subcat_api_list_create'),
+    url(r'^api/categories/(?P<pk>\d+)/subcategories/$', SubCategoryListAPIView.as_view(), name='subcat_api_list'),
+    url(r'^api/subcategories/(?P<pk>\d+)/posts/$', SubPostListCreateAPIView.as_view(), name='sub_post_api_list_create'),
+    url(r'^api/categories/(?P<pk>\d+)/posts/$', CatPostListCreateAPIView.as_view(), name='cat_post_api_list_create'),
     url(r'^api/posts/$', PostListCreateAPIView.as_view(), name='post_api_list_create'),
-    url(r'^api/categories/(?P<pk>\d+)', CategoryRetrieveUpdateDestroyAPIView.as_view(), name='cat_api_retrieve_update_destroy'),
-    url(r'^api/subcategories/(?P<pk>\d+)', SubCategoryRetrieveUpdateDestroyAPIView.as_view(), name='subcat_api_retrieve_update_destroy'),
-    url(r'^api/posts/(?P<pk>\d+)', PostRetrieveUpdateDestroyAPIView.as_view(), name='post_api_retrieve_update_destroy')
+    url(r'^api/categories/(?P<pk>\d+)/$', CategoryRetrieveUpdateDestroyAPIView.as_view(), name='cat_api_retrieve_update_destroy'),
+    url(r'^api/subcategories/(?P<pk>\d+)/$', SubCategoryRetrieveUpdateDestroyAPIView.as_view(), name='subcat_api_retrieve_update_destroy'),
+    url(r'^api/posts/(?P<pk>\d+)/$', PostRetrieveUpdateDestroyAPIView.as_view(), name='post_api_retrieve_update_destroy')
 ]

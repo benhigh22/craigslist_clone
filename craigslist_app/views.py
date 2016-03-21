@@ -144,11 +144,17 @@ class CatPostListCreateAPIView(generics.ListCreateAPIView):
         return Post.objects.filter(subcategory__category_id=self.kwargs.get('pk'))
 
 
+class PostRetrieveAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = PostSerializer
 
-class PostRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    def get_queryset(self):
+        return Post.objects.filter(id=self.kwargs.get('pk'))
+
+
+class PostUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PostSerializer
     authentication_classes = (BasicAuthentication,)
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        return Post.objects.filter(id=self.kwargs.get('pk'))
+        return Post.objects.filter(user_id=self.request.user)

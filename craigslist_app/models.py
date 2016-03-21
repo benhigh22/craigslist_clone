@@ -32,6 +32,7 @@ class SubCategory(models.Model):
 
 
 class Post(models.Model):
+    user = models.ForeignKey(User)
     subcategory = models.ForeignKey(SubCategory)
     title = models.CharField(max_length=100)
     description = models.TextField()
